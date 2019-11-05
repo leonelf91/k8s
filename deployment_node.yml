@@ -1,0 +1,22 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-deployment
+  namespace: facturacion-desarrollo
+spec:
+  selector:
+    matchLabels:
+      app: contenedornode
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: contenedornode
+    spec:
+      containers:
+      - name: contenedornode
+        image: leonelf91/nodealbox:latest
+        ports:
+        - containerPort: 80
+

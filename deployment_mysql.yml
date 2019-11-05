@@ -1,0 +1,26 @@
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: mysql-deployment
+  namespace: facturacion-desarrollo
+spec:
+  selector:
+    matchLabels:
+      app: contenedormysql
+  replicas: 1 
+  template:
+    metadata:
+      labels:
+        app: contenedormysql
+    spec:
+      containers:
+      - name: contenedormysql
+        image: mysql:8.0.17
+        ports:
+        - containerPort: 3306
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            value: "root"
+          - name: MYSQL_DATABASE
+            value: "db_facturacion_backend"
+

@@ -1,0 +1,37 @@
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: tomcat-deployment
+  namespace: facturacion-desarrollo
+spec:
+  selector:
+    matchLabels:
+      app: contenedortomcat
+  replicas: 1 
+  template:
+    metadata:
+      labels:
+        app: contenedortomcat
+    spec:
+      containers:
+      - name: contenedortomcat
+        image: leonelf91/dockertomcat:latest
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+          - name: config-volume
+            mountPath: /properties/
+          - name: secretos-volume
+            mountPath: /secretos/
+          - name: keystore-volume
+            mountPath: /certificados/
+      volumes:
+        - name: config-volume
+          configMap:
+            name: config-app
+        - name: secretos-volume
+          secret:
+            secretName: db-user-pass
+        - name: keystore-volume
+          configMap:
+            name: certificados-app
