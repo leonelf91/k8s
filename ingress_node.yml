@@ -5,6 +5,7 @@ metadata:
   namespace: facturacion-desarrollo
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
+	
 spec:
   rules:
   - http:
